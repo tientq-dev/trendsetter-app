@@ -1,186 +1,118 @@
+// screens/Notification/NotificationScreen.js
 import React, { useContext } from "react";
 import {
-    View,
-    Text,
-    StyleSheet,
-    ScrollView,
-    TouchableOpacity,
-    Image,
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useMessages } from "../../contexts/ChatDataContext";
 import CustomButton from "../../components/button/CustomButton";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 export default function NotificationScreen({ navigation }) {
-    const { user } = useContext(AuthContext);
-    const [expanded, setExpanded] = useState(false);
-    const { messages } = useMessages();
+  const { user } = useContext(AuthContext);
+
+  const activities = [
+        {
+            id: 1,
+            title: "Giao dịch Sản phẩm Nike Air Zoom đã đặt thành công",
+            time: "Ngày 30 tháng 4 năm 2025 1:01 PM",
+        },
+        {
+            id: 2,
+            title: "Giao dịch Nike Air Zoom Pegasus 36 Miami đang chờ giao hàng",
+            time: "Ngày 30 tháng 4 năm 2025 1:01 PM",
+        },
+        {
+            id: 3,
+            title: "Giao dịch Nike Air Max đã giao thành công",
+            time: "Ngày 30 tháng 4 năm 2025 1:01 PM",
+        },
+    ];
+
+  if (!user) {
     return (
-        <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <Text style={styles.headerTitle}>Thông báo</Text>
-            </View>
-            {user ? (
-                <ScrollView style={styles.container}>
-                    <View style={styles.dividerTop} />
+      <View style={styles.scroll}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerTitle}>Trung tâm thông báo</Text>
+        </View>
+        <Text style={styles.title}>Thử ngay!</Text>
+        <Text style={styles.subtitle}>
+          Nhận thông báo đơn hàng và sản phẩm bạn theo dõi — hãy đăng nhập hoặc
+          đăng ký.
+        </Text>
+        <View style={styles.authContainer}>
+          <CustomButton
+            title="Đăng ký"
+            onPress={() => navigation.navigate("SignUp")}
+          />
+          <CustomButton
+            title="Đăng nhập"
+            outline
+            onPress={() => navigation.navigate("Login")}
+          />
+        </View>
+      </View>
+    );
+  }
 
-                    {messages.map((item, index) => (
-                        <View key={index}>
-                            <TouchableOpacity
-                                style={styles.tag}
-                                onPress={() => navigation.navigate("Chat", { id: item.id })}
-                            >
-                                <Image source={item.img} style={styles.avatar} />
-
-                                <View style={styles.content}>
-                                    <View style={styles.titleRow}>
-                                        <Text
-                                            style={[
-                                                styles.tieude,
-                                                !item.read && { fontWeight: "bold" },
-                                            ]}
-                                        >
-                                            {item.title}
-                                        </Text>
-                                        {!item.read && <View style={styles.unread} />}
-                                    </View>
-                                    <Text
-                                        style={styles.message}
-                                        numberOfLines={1}
-                                        ellipsizeMode="tail"
-                                    >
-                                        {item.nd}
-                                    </Text>
-                                    <Text style={styles.timeText}>{item.time}</Text>
-                                </View>
-                            </TouchableOpacity>
-
-                            <View style={styles.divider} />
-                        </View>
+  return (
+    <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <Text style={styles.headerTitle}>Hoạt động</Text>
+                </View>
+    
+                <ScrollView>
+                    {activities.map((item) => (
+                        <TouchableOpacity style={styles.item} key={item.id}>
+                            <View style={styles.textContainer}>
+                                <Text style={styles.title}>{item.title}</Text>
+                                <Text style={styles.time}>{item.time}</Text>
+                            </View>
+                        </TouchableOpacity>
                     ))}
                 </ScrollView>
-            ) : (
-                <ScrollView style={styles.scroll}>
-                    <Text style={styles.title}>Thử ngay!</Text>
-                    <Text style={styles.subtitle}>
-                        Nhận thông báo đơn hàng và sản phẩm bạn theo dõi — hãy đăng nhập
-                        hoặc đăng ký.
-                    </Text>
-                    <View style={styles.authContainer}>
-                        <CustomButton
-                            title="Đăng ký"
-                            onPress={() => navigation.navigate("SignUp")}
-                        />
-                        <CustomButton
-                            title="Đăng nhập"
-                            outline
-                            onPress={() => navigation.navigate("Login")}
-                        />
-                    </View>
-                </ScrollView>
-            )}
-        </View>
-    );
+            </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-    },
-    scroll: {
-        flex: 1,
-        padding: 16,
-        backgroundColor: "#ffffff",
-    },
-    title: {
-        fontSize: 22,
-        fontWeight: "600",
-        marginBottom: 10,
-    },
-    subtitle: {
-        fontSize: 14,
-        color: "#555",
-        marginBottom: 20,
-    },
-
-    avatar: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-    },
-    tag: {
-        flexDirection: "row",
-        padding: 16,
-        alignItems: "center",
-        backgroundColor: "#fff",
-    },
-    content: {
-        flex: 1,
-        marginLeft: 12,
-    },
-    tieude: {
-        fontSize: 15,
-        color: "#000",
-    },
-    message: {
-        fontSize: 13,
-        color: "#555",
-        marginTop: 4,
-        lineHeight: 18,
-    },
-    unread: {
-        width: 10,
-        height: 10,
-        borderRadius: 5,
-        backgroundColor: "#2ecc71",
-        marginLeft: 6,
-    },
-    titleRow: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    divider: {
-        height: 1,
-        backgroundColor: "#eee",
-    },
-    dividerTop: {
-        height: 2,
-        backgroundColor: "#ccc",
-    },
-    timeText: {
-        fontSize: 12,
-        color: "#888",
-        marginTop: 6,
-    },
-
-    headerContainer: {
-        paddingVertical: 22,
-        paddingHorizontal: 18,
-    },
-    headerTitle: {
-        fontWeight: "600",
-        fontStyle: "italic",
-        fontSize: 20,
-        color: "#006340",
-        textAlign: "center",
-    },
-    headerActions: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        position: "absolute",
-        width: "100%",
-        height: "100%",
-        paddingHorizontal: 18,
-    },
-    authContainer: {
-        marginTop: 20,
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 20,
-        paddingHorizontal: 18,
-    },
+  container: { flex: 1, backgroundColor: "#fff" },
+  scroll: { flex: 1, padding: 16, backgroundColor: "#ffffff" },
+  title: { fontSize: 22, fontWeight: "600", marginBottom: 10 },
+  subtitle: { fontSize: 14, color: "#555", marginBottom: 20 },
+  authContainer: {
+    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20,
+    paddingHorizontal: 18,
+  },
+  headerContainer: { paddingVertical: 20, paddingHorizontal: 18 },
+  headerTitle: {
+    fontWeight: "bold",
+    fontStyle: "italic",
+    fontSize: 20,
+    color: "#006340",
+    textAlign: "center",
+  },
+  item: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  itemText: { flex: 1,  marginLeft: 12, fontSize: 16, color: "#000" },
+  badge: {
+    backgroundColor: "#ff3b30",
+    borderRadius: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+  },
+  badgeText: { color: "#fff", fontSize: 13, fontWeight: "600" },
+  textContainer: { marginLeft: 12, flex: 1 },
+  time: { fontSize: 13, color: "#555", marginTop: 4 },
 });
