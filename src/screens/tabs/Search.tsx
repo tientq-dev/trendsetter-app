@@ -47,7 +47,7 @@ export default function SearchScreen() {
     loading,
     error,
   } = useAppSelector((state) => state.products);
-  const { cateList, cateStatus, cateError } = useAppSelector(
+  const { cateList } = useAppSelector(
     (state) =>
       state.categories || { cateList: [], cateStatus: false, cateError: null }
   );
@@ -58,18 +58,21 @@ export default function SearchScreen() {
   const { favorites } = useAppSelector((state) => state.favorites);
 
   const priceFilters = [
-    { label: "Tất cả", min: 0, max: Infinity, icon: "grid-outline" },
-    { label: "100k - 600k", min: 110_000, max: 600_000, icon: "cash-outline" },
-    { label: "400k - 910k", min: 400_000, max: 910_000, icon: "card-outline" },
+    { label: "Tất cả", min: 0, max: Infinity, icon: "grid-outline" as const },
+    {
+      label: "100k - 600k",
+      min: 110_000,
+      max: 600_000,
+      icon: "cash-outline" as const,
+    },
+    {
+      label: "400k - 910k",
+      min: 400_000,
+      max: 910_000,
+      icon: "card-outline" as const,
+    },
   ];
   const [activePriceFilter, setActivePriceFilter] = useState(priceFilters[0]);
-
-  // Tìm giá cao nhất trong list
-  const maxPrice =
-    items && items.length > 0
-      ? Math.max(...items.map((p) => p.finalPrice || 0))
-      : 0;
-  const dynamicPriceFilters = priceFilters;
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -334,7 +337,7 @@ export default function SearchScreen() {
               </TouchableOpacity>
             </View>
             <ScrollView style={styles.modalScrollView}>
-              {dynamicPriceFilters.map((filter) => (
+              {priceFilters.map((filter) => (
                 <TouchableOpacity
                   key={filter.label}
                   style={[
@@ -349,7 +352,7 @@ export default function SearchScreen() {
                 >
                   <View style={styles.modalItemContent}>
                     <Ionicons
-                      name={filter.icon as any}
+                      name={filter.icon}
                       size={20}
                       color={
                         activePriceFilter.label === filter.label
