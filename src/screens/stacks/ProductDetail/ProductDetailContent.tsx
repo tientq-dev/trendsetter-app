@@ -11,6 +11,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addFavItem, removeFavItem, resetFavState } from "@/redux/features/favorite/favoriteSlice";
 import { debounce } from "lodash";
+import { useNavigation } from "@react-navigation/native";
 
 const screenHeight = Dimensions.get('window').height;
 const SizeSelectorMemo = React.memo(SizeSelector);
@@ -26,6 +27,7 @@ type Props = {
 };
 export default function ProductDetailContent({ product, initialVariantId, onRefresh, refreshing }: Props) {
     const dispatch = useAppDispatch();
+    const navigation = useNavigation();
     const { status, error } = useAppSelector(state => state.favorite);
     const { brand, name, campaign, description, gender, rating, variants } = product;
     const [selectedVariant, setSelectedVariant] = useState<Variant>(
@@ -36,6 +38,7 @@ export default function ProductDetailContent({ product, initialVariantId, onRefr
     const { user, setUser } = useAuthContext();
     const { addToCart, items } = useCartContext();
     const [isLiked, setIsLiked] = useState(false);
+    
 
     useEffect(() => {
         if (status === 'failed' && error) {
@@ -111,10 +114,13 @@ export default function ProductDetailContent({ product, initialVariantId, onRefr
     };
 
     function handleReviewClick() {
-        showInfoToast({
-            title: "Thông báo",
-            message: "Tính năng đang được phát triển"
-        })
+        // showInfoToast({
+        //     title: "Thông báo",
+        //     message: "Tính năng đang được phát triển"
+        // })
+        navigation.navigate("ReviewScreen", { productId: product._id,rating: rating});
+
+        
     }
 
     function handleVariantSelect(v: Variant) {
