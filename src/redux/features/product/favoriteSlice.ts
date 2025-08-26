@@ -89,6 +89,7 @@ const favoritesSlice = createSlice({
                 state.favorites = state.favorites.filter(v => v._id !== variantId);
             })
             .addCase(removeFavorite.rejected, (state, action) => {
+
                 console.error("Rollback: Failed to remove favorite", action.error);
             });
     },

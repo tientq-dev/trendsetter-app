@@ -13,7 +13,7 @@ import { IMAGE_NOT_FOUND } from '@/types/Products/products';
 import { ProductVariant } from '../../../types/Products/productVariant';
 import { Props } from './../Account/Profile';
 import { AuthContext } from '@/contexts/AuthContext';
-import { addFavorite, removeFavorite, getFavorites } from '@/redux/features/product/favoriteSlice';
+import { addFavorite, removeFavorite, getFavorites, optimisticRemoveFavorite } from '@/redux/features/product/favoriteSlice';
 
 const getGender = (gender?: string) => {
     if (gender === 'male') return 'Nam';
@@ -56,10 +56,11 @@ const FavoritesScreen: React.FC<Props> = ({ navigation }) => {
         setLikingId(variantId);
 
         try {
+            dispatch(optimisticRemoveFavorite({ variantId }));
+
             // Màn hình này chỉ có sản phẩm đã thích, nên mặc định là hành động xóa
             await dispatch(removeFavorite({ _id: user._id, variantId })).unwrap();
             // Sau khi xóa thành công, fetch lại danh sách mới
-            await dispatch(getFavorites({ _id: user._id }));
         } catch (err) {
             console.error("Failed to remove favorite:", err);
         } finally {

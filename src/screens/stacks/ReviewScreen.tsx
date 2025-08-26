@@ -15,11 +15,12 @@ export default function ReviewScreen({ route }: { route: any }) {
   const { reviews, reviewStatus, reviewError } = useSelector(
     (state: RootState) => state.review2
   );
+  const {productId}= route.params;
   const dispatch = useDispatch<AppDispatch>();
 
   // Có thể lấy productId từ route.params, tạm fix cứng
-  const productId = "686e65c09d70cd16504feea9";
-  const rating = "4";
+  // const productId = "686e65c09d70cd16504feea9";
+  // const rating = "4";
 
   useEffect(() => {
     dispatch(fetchReviewsByProductId({ productId }));
