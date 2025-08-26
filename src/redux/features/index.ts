@@ -9,7 +9,7 @@ import addressReducer from "./address/addressSlice";
 import LocationReducer from "./addresses/locationSlice";
 import updateProfileReducer from "./User/userSlice";
 import FavoriteReducer from "./product/favoriteSlice";
-
+import GetReviewReducer from "./review/GetReviewSlice"
 export { default as productReducer } from "./product/productSlice";
 export { default as reviewsReducer } from "./review/reviewsSlice";
 export { default as cartsReducer } from "./cart/cartsSlice";
@@ -34,4 +34,5 @@ export {
     LocationReducer,
     updateProfileReducer,
     FavoriteReducer as favoritesReducer,
+    GetReviewReducer
 };
