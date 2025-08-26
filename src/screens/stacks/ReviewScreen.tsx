@@ -36,7 +36,7 @@ export default function ReviewScreen({ route }: { route: any }) {
         </View>
 
         <Text style={styles.content}>
-          Màu: {item.orderItem.color} — Size: {item.orderItem.size?.size}
+          <Text style={styles.chu}>Màu:</Text> {item.orderItem.color} — <Text style={styles.chu}>Size: </Text>{item.orderItem.size?.size}
         </Text>
 
         <Text style={styles.content}>
@@ -87,4 +87,5 @@ const styles = StyleSheet.create({
   username: { fontWeight: "bold", fontSize: 14 },
   content: { fontSize: 14, marginVertical: 4 },
   date: { color: "gray", fontSize: 12, marginTop: 4 },
+  chu:{color: "gray",fontSize: 14}
 });
