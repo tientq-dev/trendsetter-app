@@ -1,6 +1,6 @@
 import Account from "./Account";
 import Home from "./HomeScreen";
-import Notification from "./Notification";
+import NotificationScreen from "./NotificationScreen";
 import Search from "./Search";
 
-export { Account, Home, Notification, Search };
+export { Account, Home, NotificationScreen, Search };
