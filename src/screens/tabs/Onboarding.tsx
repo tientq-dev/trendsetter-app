@@ -12,7 +12,23 @@ import {
 
 const { width, height } = Dimensions.get("window");
 
-const ONBOARD_DATA = [
+interface OnboardingProps {
+  navigation?: {
+    replace: (routeName: string) => void;
+  };
+  onFinish?: () => void;
+}
+
+interface OnboardingItem {
+  key: string;
+  title: string;
+  description: string;
+  image?: any;
+  showButton: boolean;
+  buttonText?: string;
+}
+
+const ONBOARD_DATA: OnboardingItem[] = [
   {
     key: "splash",
     title: "TRENDSETTER",
@@ -46,10 +62,10 @@ const ONBOARD_DATA = [
   },
 ];
 
-const Onboarding = ({ navigation, onFinish }) => {
+const Onboarding = ({ navigation, onFinish }: OnboardingProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const flatListRef = useRef(null);
-  const timerRef = useRef(null);
+  const flatListRef = useRef<FlatList<OnboardingItem>>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Auto slide 5s
   useEffect(() => {
@@ -62,7 +78,11 @@ const Onboarding = ({ navigation, onFinish }) => {
         });
       }, 5000);
     }
-    return () => clearTimeout(timerRef.current);
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, [currentIndex]);
 
   const goToNext = () => {
@@ -93,7 +113,13 @@ const Onboarding = ({ navigation, onFinish }) => {
     }
   };
 
-  const renderItem = ({ item, index }) => (
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: OnboardingItem;
+    index: number;
+  }) => (
     <View style={styles.page}>
       {/* Bỏ qua & Quay lại */}
       {index > 0 && (
