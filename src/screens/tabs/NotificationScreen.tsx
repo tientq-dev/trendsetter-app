@@ -1,4 +1,4 @@
-// screens/Notification/NotificationScreen.js
+
 import React, { useContext } from "react";
 import {
   View,
@@ -10,34 +10,36 @@ import {
 import { AuthContext } from "../../contexts/AuthContext";
 import CustomButton from "../../components/button/CustomButton";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-
+import { ScreenHeader } from "@/components";
 export default function NotificationScreen({ navigation }) {
   const { user } = useContext(AuthContext);
 
+  
   const activities = [
-        {
-            id: 1,
-            title: "Giao dịch Sản phẩm Nike Air Zoom đã đặt thành công",
-            time: "Ngày 30 tháng 4 năm 2025 1:01 PM",
-        },
-        {
-            id: 2,
-            title: "Giao dịch Nike Air Zoom Pegasus 36 Miami đang chờ giao hàng",
-            time: "Ngày 30 tháng 4 năm 2025 1:01 PM",
-        },
-        {
-            id: 3,
-            title: "Giao dịch Nike Air Max đã giao thành công",
-            time: "Ngày 30 tháng 4 năm 2025 1:01 PM",
-        },
-    ];
+    {
+      id: 1,
+      title: "Giao dịch Sản phẩm Nike Air Zoom đã đặt thành công",
+      time: "Ngày 30 tháng 4 năm 2025 1:01 PM",
+    },
+    {
+      id: 2,
+      title: "Giao dịch Nike Air Zoom Pegasus 36 Miami đang chờ giao hàng",
+      time: "Ngày 30 tháng 4 năm 2025 1:01 PM",
+    },
+    {
+      id: 3,
+      title: "Giao dịch Nike Air Max đã giao thành công",
+      time: "Ngày 30 tháng 4 năm 2025 1:01 PM",
+    },
+  ];
 
   if (!user) {
     return (
       <View style={styles.scroll}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerTitle}>Trung tâm thông báo</Text>
-        </View>
+        <ScreenHeader
+          title="Thông báo"
+          
+        />
         <Text style={styles.title}>Thử ngay!</Text>
         <Text style={styles.subtitle}>
           Nhận thông báo đơn hàng và sản phẩm bạn theo dõi — hãy đăng nhập hoặc
@@ -60,28 +62,33 @@ export default function NotificationScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-                <View style={styles.headerContainer}>
-                    <Text style={styles.headerTitle}>Hoạt động</Text>
-                </View>
-    
-                <ScrollView>
-                    {activities.map((item) => (
-                        <TouchableOpacity style={styles.item} key={item.id}>
-                            <View style={styles.textContainer}>
-                                <Text style={styles.title}>{item.title}</Text>
-                                <Text style={styles.time}>{item.time}</Text>
-                            </View>
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView>
+      <ScreenHeader
+          title="Thông báo"
+          showBackButton={false}
+        />
+
+      <ScrollView>
+        {activities.map((item) => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("OrderHistory")}
+            style={styles.item}
+            key={item.id}
+          >
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text style={styles.time}>{item.time}</Text>
             </View>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
   scroll: { flex: 1, padding: 16, backgroundColor: "#ffffff" },
-  title: { fontSize: 22, fontWeight: "600", marginBottom: 10 },
+  title: { fontSize: 22, fontWeight: "600", marginVertical: 20 },
   subtitle: { fontSize: 14, color: "#555", marginBottom: 20 },
   authContainer: {
     marginTop: 20,
@@ -105,7 +112,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#eee",
   },
-  itemText: { flex: 1,  marginLeft: 12, fontSize: 16, color: "#000" },
+  itemText: { flex: 1, marginLeft: 12, fontSize: 16, color: "#000" },
   badge: {
     backgroundColor: "#ff3b30",
     borderRadius: 12,
