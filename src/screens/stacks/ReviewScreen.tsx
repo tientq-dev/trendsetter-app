@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { fetchReviewsByProductId } from "@/redux/features/review/GetReviewSlice";
 import { Review } from "@/types";
 import { RatingStars } from "@/components";
-import { ObjectId, Rating } from '@/types';
+import { ObjectId, Rating } from "@/types";
 
+type HeaderProps = {
+  rating: Rating;
+  handleOnClick: () => void;
+};
 export default function ReviewScreen({ route }: { route: any }) {
   const { reviews, reviewStatus, reviewError } = useSelector(
     (state: RootState) => state.review2
@@ -28,9 +27,11 @@ export default function ReviewScreen({ route }: { route: any }) {
 
   const renderItem = ({ item }: { item: Review }) => (
     <View style={styles.card}>
-      <Text style={styles.username}>👤 User: {item._id}</Text>
+      <Text style={styles.username}>
+        👤 {item.user?.name || "Người dùng ẩn danh"}
+      </Text>
 
-      <RatingStars rating={Number.parseInt(rating.average || '0')} />
+      <RatingStars rating={Number.parseInt(rating.average || "0")} />
 
       <Text style={styles.content}>
         {item.content && item.content.trim() !== ""
@@ -39,31 +40,16 @@ export default function ReviewScreen({ route }: { route: any }) {
       </Text>
 
       <Text style={styles.date}>
-        📅 {new Date(item.createdAt).toLocaleDateString("vi-VN")}
+        {new Date(item.createdAt).toLocaleDateString("vi-VN")}
       </Text>
-
-      {/* Like */}
-      <Text style={styles.like}>👍 {item.like}</Text>
     </View>
   );
 
-  if (reviewStatus === "loading") {
-    return <Text style={{ textAlign: "center", marginTop: 20 }}>Đang tải...</Text>;
-  }
-
-  if (reviewError) {
-    return (
-      <Text style={{ textAlign: "center", marginTop: 20, color: "red" }}>
-        Lỗi: {reviewError}
-      </Text>
-    );
-  }
-
   return (
     <View style={styles.container}>
-        <View style={styles.headerContainer}>
-                            <Text style={styles.headerTitle}>Đánh giá sản phẩm</Text>
-                        </View>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Đánh giá sản phẩm</Text>
+      </View>
       <Text style={styles.title}>Đánh giá sản phẩm</Text>
       <FlatList
         data={reviews || []}
