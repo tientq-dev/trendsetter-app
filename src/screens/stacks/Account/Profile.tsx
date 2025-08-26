@@ -116,13 +116,13 @@ const Profile: React.FC<Props> = ({ navigation, route }) => {
                 <SettingsCard title="Tài khoản">
                     <NavRow text="Thông tin cá nhân" icon="person-outline" onPress={() => navigation.navigate('editProfile')} />
                     <NavRow text="Địa chỉ đã lưu" icon="location-outline" onPress={() => navigation.navigate('addr', { title: "Địa chỉ đã lưu" })} />
-                    <NavRow text="Phương thức thanh toán" icon="card-outline" onPress={() => navigation.navigate('PaymentMethodsScreen', { title: "Phương thức thanh toán" })} />
+                    {/* <NavRow text="Phương thức thanh toán" icon="card-outline" onPress={() => navigation.navigate('PaymentMethodsScreen', { title: "Phương thức thanh toán" })} /> */}
                 </SettingsCard>
 
                 <SettingsCard title="Bảo mật">
                     <NavRow text="Đổi mật khẩu" icon="lock-closed-outline" onPress={() => setModalVisible(true)} />
-                    <NavRow text="Lịch sử đăng nhập" icon="list-circle-outline" onPress={() => { /* cap nhat sau */ }} />
-                    <NavRow text="Xác thực hai yếu tố (2FA)" icon="shield-checkmark-outline" onPress={() => { /* cap nhat sau */ }} />
+                    {/* <NavRow text="Lịch sử đăng nhập" icon="list-circle-outline" onPress={() => { }} />
+                    <NavRow text="Xác thực hai yếu tố (2FA)" icon="shield-checkmark-outline" onPress={() => { }} /> */}
                 </SettingsCard>
 
                 <SettingsCard title="Thông báo">

@@ -14,7 +14,7 @@ const myAccountItems = [
     { id: 'profile', icon: 'user-cog', title: 'Thiết lập tài khoản', screen: 'Profile' },
     { id: 'cart', icon: 'shopping-cart', title: 'Giỏ hàng', screen: 'Cart' },
     { id: 'favorite', icon: 'heart', title: 'Yêu thích', screen: 'FavoritesScreen' },
-    { id: 'wallet', icon: 'wallet', title: 'Ví', screen: 'WalletScreen' },
+    // { id: 'wallet', icon: 'wallet', title: 'Ví', screen: 'WalletScreen' },
 ];
 
 const appSettingsItems = [
@@ -153,11 +153,11 @@ export default function AccountScreen({ navigation }: { navigation: TabsNav }) {
                         items={myAccountItems}
                         onItemPress={handleNavigation}
                     />
-                    <MenuSection
+                    {/* <MenuSection
                         title="Cài đặt & Hỗ trợ"
                         items={appSettingsItems}
                         onItemPress={handleNavigation}
-                    />
+                    /> */}
                     <MenuSection
                         items={[{ id: 'logout', icon: 'sign-out-alt', title: 'Đăng xuất', screen: null }]}
                         onItemPress={handleLogout}
