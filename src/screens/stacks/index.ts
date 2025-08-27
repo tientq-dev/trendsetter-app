@@ -28,6 +28,7 @@ import WalletScreen from "../stacks/Account/WalletScreen";
 import PaymentMethodsScreen from "./Account/PaymentMethodsScreen";
 import PrivacyPolicyScreen from "./Account/PrivacyPolicyScreen";
 import HelpCenterScreen from "./Account/HelpCenterScreen";
+import ReviewScreen from "./ReviewScreen";
 export {
     ForgotPasswordScreen,
     ChangePasswordScreen,
@@ -48,4 +49,5 @@ export {
     PaymentMethodsScreen,
     PrivacyPolicyScreen,
     HelpCenterScreen,
+    ReviewScreen
 };

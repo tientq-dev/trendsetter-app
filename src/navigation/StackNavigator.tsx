@@ -23,6 +23,7 @@ export default function StackNavigator() {
             <Stack.Screen name="ReviewWriting"  component={Stacks.ReviewWriting} />
             <Stack.Screen name="OrderHistory"   component={Stacks.OrderHistory} />
             <Stack.Screen name="OrderDetail"    component={Stacks.OrderDetail} />
+            <Stack.Screen name="ReviewScreen"    component={Stacks.ReviewScreen} />
 
             <Stack.Screen name="Onboarding" component={Onboarding} />
             <Stack.Screen name="Tabs" component={TabNavigator} />

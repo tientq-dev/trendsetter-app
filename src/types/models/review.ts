@@ -30,4 +30,5 @@ type OrderItemLite = Pick<OrderItem, "_id" | "color" | "size">;
 export interface Review extends BaseReviewProps {
     user: UserLite;
     orderItem: OrderItemLite;
+    
 }

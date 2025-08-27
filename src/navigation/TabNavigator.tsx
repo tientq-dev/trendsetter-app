@@ -64,7 +64,7 @@ export default function TabNavigator() {
                 })}
             />
             <Tab.Screen name="Search" component={Search} options={{ title: 'Tìm kiếm' }} />
-            <Tab.Screen name="Notifications" component={NotificationScreen} options={{ title: 'Thông báo' }} />
+            <Tab.Screen name="Notifications" component={NotificationScreen} options={{title: 'Thông báo' }} />
             <Tab.Screen name="Account" component={Account} options={{ title: 'Tài khoản' }} />
         </Tab.Navigator>
     );

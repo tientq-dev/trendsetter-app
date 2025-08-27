@@ -26,6 +26,7 @@ export const store = configureStore({
         order: Reducer.orderReducer,
         favorite: Reducer.favoriteReducer,
         review: Reducer.reviewReducer,
+        review2: Reducer.GetReviewReducer
     },
 });
 
