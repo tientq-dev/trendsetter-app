@@ -1,7 +1,6 @@
-export const IMAGE_NOT_FOUND =
-    "https://res.cloudinary.com/trendsetter/image/upload/v1750076569/download_cdvees.png";
+export const IMAGE_NOT_FOUND = "@../assets/images/image_not_found.png";
 
-export const KEY = {
+export const TOKEN_KEY = {
     CART: "@cart",
     TOKEN: "@token",
     ADDR: "@address",

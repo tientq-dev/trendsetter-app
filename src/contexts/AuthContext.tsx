@@ -1,10 +1,10 @@
-import { createContext, useState, ReactNode, useContext, useEffect } from "react";
+import React, { createContext, useState, ReactNode, useContext, useEffect } from "react";
 import { User } from "../types/models";
 import { showErrorToast } from "@/utils/toast";
 import * as Storage from "@/services/asyncStorage.service";
 import { useAppDispatch } from "@/redux/hooks";
 import { setSelectedAddress } from "@/redux/features/address/addressesSlice";
-import { KEY } from "@/constants";
+import { TOKEN_KEY } from "@/constants";
 
 // Định nghĩa kiểu cho Context
 export type AuthContextType = {
@@ -25,9 +25,21 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const dispatch = useAppDispatch();
-    const [user, setUser] = useState<User | null>(
-        null
-    );
+    const [user, setUser] = useState<User | null>({
+        _id: "68f6fc36e8e6e10dfc27b7",
+        username: "tien",
+        fullName: "Tien",
+        email: "tien@gmail.com",
+        gender: "male",
+        birthday: "2000-01-01T00:00:00.000Z",
+        role: "customer",
+        avatar: "https://i.pravatar.cc/150",
+        favorites: [],
+        addresses: [],
+        createdAt: "2025-07-18T08:57:33.439Z",
+        updatedAt: "2025-07-18T08:57:33.439Z",
+        __v: 1
+    });
     const [email, setEmail] = useState<string>('')
 
     // useEffect(() => {
@@ -48,8 +60,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Hàm đăng xuất
     const logout = async () => {
         setUser(null);
-        await Storage.removeItem(KEY.TOKEN);
-        await Storage.removeItem(KEY.CART);
+        await Storage.removeItem(TOKEN_KEY.TOKEN);
+        await Storage.removeItem(TOKEN_KEY.CART);
     };
 
     return (

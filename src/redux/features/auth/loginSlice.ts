@@ -4,7 +4,7 @@ import { BaseState, APIError, LoginResponse, User } from "@/types";
 import { AxiosError } from "axios";
 import * as Storage from "@/services/asyncStorage.service";
 import { fetchCart, syncCart } from "../cart/cartsSlice";
-import { KEY } from "@/constants";
+import { TOKEN_KEY } from "@/constants";
 
 type LoginDataType = {
     emailOrUsername: string;
@@ -19,14 +19,14 @@ export const login = createAsyncThunk<
     try {
         const response = await apiClient.post<LoginResponse>(
             "/auth/login",
-            body
+            body,
         );
         const { user, token } = response.data;
 
-        Storage.removeItem(KEY.TOKEN);
-        await Storage.saveItem(KEY.TOKEN, token);
+        Storage.removeItem(TOKEN_KEY.TOKEN);
+        await Storage.saveItem(TOKEN_KEY.TOKEN, token);
 
-        const storedCart = await Storage.getItem(KEY.CART);
+        const storedCart = await Storage.getItem(TOKEN_KEY.CART);
         if (Array.isArray(storedCart) && storedCart.length > 0) {
             const cartItems = storedCart.map((item: any) => ({
                 sizeId: item.size._id,
@@ -34,9 +34,9 @@ export const login = createAsyncThunk<
             }));
 
             await dispatch(
-                syncCart({ userId: user._id, body: cartItems })
+                syncCart({ userId: user._id, body: cartItems }),
             ).unwrap();
-            await Storage.removeItem(KEY.CART);
+            await Storage.removeItem(TOKEN_KEY.CART);
         } else {
             await dispatch(fetchCart(user._id)).unwrap();
         }

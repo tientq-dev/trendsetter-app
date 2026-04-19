@@ -69,7 +69,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
             <ScreenHeader
                 title='Trendsetter'
                 titleStyle={{ fontStyle: 'italic', fontWeight: 'bold', letterSpacing: 1 }}
-                leftButton={<Image source={require('../../../assets/images/logo.jpg')} style={styles.logo} resizeMode='contain' />}
+                leftButton={<Image source={require('../../../assets/app-logo.png')} style={styles.logo} resizeMode='contain' />}
                 rightButton={<ToCartButton onPress={() => navigation.navigate("Cart")} />}
             />
             <ScrollView
@@ -161,9 +161,8 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
     },
     logo: {
-        height: 45,
-        width: 50,
-        borderRadius: 50
+        width: 40,
+        aspectRatio: 1,
     },
     cart: {
         height: 35,

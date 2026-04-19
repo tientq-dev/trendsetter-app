@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as Storage from "@/services/asyncStorage.service";
-import { KEY } from '@/constants';
+import { TOKEN_KEY } from '@/constants';
 
 const API_URL = "https://trendsetter-backend.onrender.com/api";
 // const API_URL = 'http://192.168.2.7:5000/api';
@@ -12,33 +12,33 @@ const API_URL = "https://trendsetter-backend.onrender.com/api";
 // const API_URL = 'https://0ade2e367965.ngrok-free.app/api';
 
 const apiClient = axios.create({
-  baseURL: API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+    baseURL: API_URL,
+    headers: {
+        "Content-Type": "application/json",
+    },
 });
 
 // xử lý lỗi mạng toàn cục
 apiClient.interceptors.response.use(
-  (res) => res,
-  (err) => {
-    if (!err.response) {
-      console.error(
-        "⚠️ Không thể kết nối đến server. Kiểm tra lại API_URL hoặc trạng thái server."
-      );
-      // showToast(
-      //     "Error"
-      //     "Mất kết nối máy chủ",
-      //     "Vui lòng kiểm tra mạng hoặc địa chỉ IP cấu hình"
-      // )
+    (res) => res,
+    (err) => {
+        if (!err.response) {
+            console.error(
+                "⚠️ Không thể kết nối đến server. Kiểm tra lại API_URL hoặc trạng thái server."
+            );
+            // showToast(
+            //     "Error"
+            //     "Mất kết nối máy chủ",
+            //     "Vui lòng kiểm tra mạng hoặc địa chỉ IP cấu hình"
+            // )
+        }
+        return Promise.reject(err);
     }
-    return Promise.reject(err);
-  }
 );
 
 // Thêm token vào request nếu có
 apiClient.interceptors.request.use(async (config) => {
-    const token = await Storage.getItem(KEY.TOKEN);
+    const token = await Storage.getItem(TOKEN_KEY.TOKEN);
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }

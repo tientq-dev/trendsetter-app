@@ -8,7 +8,7 @@ import { getAddressDetail } from '@/utils/formatForm';
 import { showErrorToast } from '@/utils/toast';
 import { getItem, removeItem } from '@/services/asyncStorage.service';
 import { setSelectedAddress } from '@/redux/features/address/addressesSlice';
-import { KEY } from '@/constants';
+import { TOKEN_KEY } from '@/constants';
 
 type Props = {
     navigation: CheckoutNav;
@@ -21,10 +21,10 @@ export default function CheckoutContent({ navigation, items, handleCheckout }: P
     const dispatch = useAppDispatch();
     const address = useAppSelector(state => state.addresses.address);
     useEffect(() => {
-        getItem(KEY.ADDR).then((storedAddr) => {
+        getItem(TOKEN_KEY.ADDR).then((storedAddr) => {
             if (storedAddr) {
                 dispatch(setSelectedAddress(storedAddr));
-                removeItem(KEY.ADDR);
+                removeItem(TOKEN_KEY.ADDR);
             }
         })
     }, []);

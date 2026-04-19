@@ -9,7 +9,7 @@ import { showErrorToast } from '@/utils/toast';
 import { OnLoading } from '@/components';
 import { useRefresh } from '@/hooks/useRefresh';
 import * as Storage from '@/services/asyncStorage.service';
-import { KEY } from '@/constants';
+import { TOKEN_KEY } from '@/constants';
 
 type Props = {
     navigation: SelectAddressNav;
@@ -46,8 +46,8 @@ export default function SelectAddressContent({ navigation, userId }: Props) {
     };
 
     function handleSetDefault(addressId: ObjectId, address: BaseAddressProps) {
-        Storage.removeItem(KEY.ADDR);
-        Storage.saveItem(KEY.ADDR, address);
+        Storage.removeItem(TOKEN_KEY.ADDR);
+        Storage.saveItem(TOKEN_KEY.ADDR, address);
         dispatch(updateShippingAddress({
             userId,
             addressId,

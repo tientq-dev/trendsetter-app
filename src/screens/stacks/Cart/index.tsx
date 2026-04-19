@@ -8,7 +8,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { GuideModal } from "./components";
 import * as Storage from "@/services/asyncStorage.service"
-import { KEY } from "@/constants";
+import { TOKEN_KEY } from "@/constants";
 
 type Props = {
     visible: boolean;
@@ -35,10 +35,10 @@ export default function Cart({ navigation }: { navigation: CartNav }) {
     const [visible, setGuideVisible] = useState(false);
 
     useEffect(() => {
-        Storage.getItem(KEY.C_GUIDE).then((value) => {
+        Storage.getItem(TOKEN_KEY.C_GUIDE).then((value) => {
             if (!value) {
                 setGuideVisible(true);
-                Storage.saveItem(KEY.C_GUIDE, true);
+                Storage.saveItem(TOKEN_KEY.C_GUIDE, true);
             }
         })
     }, [])

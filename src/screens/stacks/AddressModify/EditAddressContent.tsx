@@ -10,7 +10,7 @@ import { validateAddressStreet, validateFullName, validatePhoneNumber } from '@/
 import { getAddress } from './hooks';
 import { mapAddressToCode } from '@/services/location.service';
 import * as Storage from '@/services/asyncStorage.service';
-import { KEY } from '@/constants';
+import { TOKEN_KEY } from '@/constants';
 
 type Props = {
     navigation: AddressModifyNav;
@@ -45,8 +45,8 @@ export default function EditAddressContent({ navigation, userId, address }: Prop
     useEffect(() => {
         if (status === "succeeded" && updatedAddress) {
             if (updatedAddress.isDefault) {
-                Storage.removeItem(KEY.ADDR);
-                Storage.saveItem(KEY.ADDR, updatedAddress);
+                Storage.removeItem(TOKEN_KEY.ADDR);
+                Storage.saveItem(TOKEN_KEY.ADDR, updatedAddress);
             }
             dispatch(setSelectedAddress(updatedAddress));
             navigation.goBack();

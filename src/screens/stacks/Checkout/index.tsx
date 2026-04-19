@@ -12,7 +12,7 @@ import { showErrorToast } from '@/utils/toast';
 import { useCartContext } from '@/contexts/CartContext';
 import { getItem, removeItem } from '@/services/asyncStorage.service';
 import { setSelectedAddress } from '@/redux/features/address/addressesSlice';
-import { KEY } from '@/constants';
+import { TOKEN_KEY } from '@/constants';
 import { fetchUserOrders } from '@/redux/features/order/ordersSlice';
 
 type Props = {
@@ -68,10 +68,10 @@ export default function Checkout({ navigation, route }: Props) {
     }, [status])
 
     function handleContinueShopping() {
-        getItem(KEY.ADDR).then((storedAddr) => {
+        getItem(TOKEN_KEY.ADDR).then((storedAddr) => {
             if (storedAddr) {
                 dispatch(setSelectedAddress(storedAddr));
-                removeItem(KEY.ADDR);
+                removeItem(TOKEN_KEY.ADDR);
             }
         });
         dispatch(setTransStatus("pending"));

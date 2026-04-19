@@ -7,7 +7,7 @@ import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import * as Storage from "@/services/asyncStorage.service";
 import { addCartItem, removeCartItem, resetCartState, updateCartItem } from "@/redux/features/cart/cartSlice";
 import { debounce } from 'lodash';
-import { KEY } from "@/constants";
+import { TOKEN_KEY } from "@/constants";
 
 export type CartContextType = {
     items: CartItem[];
@@ -40,7 +40,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const [cart, setCart] = useState<CartItem[]>([]);
 
     useEffect(() => {
-        Storage.getItem(KEY.CART).then((storedCart) => {
+        Storage.getItem(TOKEN_KEY.CART).then((storedCart) => {
             if (Array.isArray(storedCart))
                 setCart(storedCart);
         });
@@ -75,8 +75,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }, [updateStatus]);
 
     async function updateCartStorage(updatedCart: CartItem[]) {
-        await Storage.removeItem(KEY.CART);
-        await Storage.saveItem(KEY.CART, updatedCart);
+        await Storage.removeItem(TOKEN_KEY.CART);
+        await Storage.saveItem(TOKEN_KEY.CART, updatedCart);
     }
 
     const addToCart = async (newItem: CartItem) => {

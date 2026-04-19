@@ -9,7 +9,7 @@ import { addShippingAddress, resetAddressesState, setSelectedAddress } from '@/r
 import { validateAddressStreet, validateFullName, validatePhoneNumber } from '@/utils/validateForm';
 import { getAddress } from './hooks';
 import * as Storage from '@/services/asyncStorage.service';
-import { KEY } from '@/constants';
+import { TOKEN_KEY } from '@/constants';
 
 type Props = {
     navigation: AddressModifyNav;
@@ -39,8 +39,8 @@ export default function AddAddressContent({ navigation, userId }: Props) {
     useEffect(() => {
         if (status === "succeeded" && newAddress) {
             if (newAddress.isDefault) {
-                Storage.removeItem(KEY.ADDR);
-                Storage.saveItem(KEY.ADDR, newAddress);
+                Storage.removeItem(TOKEN_KEY.ADDR);
+                Storage.saveItem(TOKEN_KEY.ADDR, newAddress);
             }
             dispatch(setSelectedAddress(newAddress));
             navigation.goBack();
